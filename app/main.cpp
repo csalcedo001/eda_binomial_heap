@@ -20,7 +20,10 @@ int main() {
 
 	b.print();
 
-	cout << "Minimum value is " << b.get_min() << endl;
+	while (b.size() > 0) {
+		cout << "Minimum value is " << b.get_min() << endl;
+		b.delete_min();
+	}
 
 	return 0;
 }

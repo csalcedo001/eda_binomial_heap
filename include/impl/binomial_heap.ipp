@@ -43,20 +43,41 @@ T BinomialHeap<T>::get_min() {
 
 template <typename T>
 void BinomialHeap<T>::delete_min() {
-	int i = 0;
-	Node<T> *node = this->nodes_[0];
-	
-	for ( ; i < this->nodes_.size() && node == nullptr; i++) {
-		node = this->nodes[i];
+	// TODO: Throw error if size is 0
+	if (this->size_ == 0) return;
+
+	this->size_--;
+
+	Node<T> *node = this->min_;
+	this->nodes_[this->min_->rank()] = nullptr;
+
+	for (auto child : node->children_) {
+		this->insert(child);
 	}
 
-	int min_value = node->value_;
+	delete node;
+
+
+	if (this->size_ == 0) {
+		this->min_ = nullptr;
+		return;
+	}
+
+	int i = 0;
+	
+	while (i < this->nodes_.size() && this->nodes_[i] == nullptr) {
+		i++;
+	}
+
+	Node<T> *min_node = this->nodes_[i];
 
 	for ( ; i < this->nodes_.size(); i++) {
-		min_value = std::min(this->nodes_[i]->value_, min_value);
+		if (this->nodes_[i] != nullptr && this->nodes_[i]->value_ < min_node->value_) {
+			min_node = this->nodes_[i];
+		}
 	}
 
-	this->min_ = min_value;
+	this->min_ = min_node;
 }
 
 template <typename T>
