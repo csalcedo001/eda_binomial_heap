@@ -11,11 +11,16 @@ int main() {
 
 	cin >> n;
 
+	int value = 0;
+
 	for (int i = 0; i < n; i++) {
-		b.insert(i);
+		value += i % 2 == 1 ? i : -i;
+		b.insert(value);
 	}
 
 	b.print();
+
+	cout << "Minimum value is " << b.get_min() << endl;
 
 	return 0;
 }

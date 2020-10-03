@@ -14,8 +14,11 @@ class BinomialHeap {
 private:
 	int size_;
 	std::vector<Node<T> *> nodes_;
+	Node<T> *min_;
 
 public:
+	BinomialHeap();
+
 	int size();
 	void insert(T);
 	T get_min();

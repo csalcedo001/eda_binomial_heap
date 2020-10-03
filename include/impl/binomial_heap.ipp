@@ -11,20 +11,53 @@ namespace eda {
 namespace binomial_heap {
 
 template <typename T>
-int size();
+BinomialHeap<T>::BinomialHeap() :
+	size_(0),
+	min_(nullptr)
+{ }
+
+template <typename T>
+int BinomialHeap<T>::size() {
+	return this->size_;
+}
 
 template <typename T>
 void BinomialHeap<T>::insert(T value) {
 	Node<T> *node = new Node<T>(value);
 
 	this->insert(node);
+	this->size_++;
+
+	if (this->min_ == nullptr || value < this->min_->value_) {
+		this->min_ = node;
+	}
 }
 
 template <typename T>
-T get_min();
+T BinomialHeap<T>::get_min() {
+	// TODO: Throw error when size == 0 
+	if (this->size_ == 0) return -1;
+
+	return this->min_->value_;
+}
 
 template <typename T>
-void delete_min();
+void BinomialHeap<T>::delete_min() {
+	int i = 0;
+	Node<T> *node = this->nodes_[0];
+	
+	for ( ; i < this->nodes_.size() && node == nullptr; i++) {
+		node = this->nodes[i];
+	}
+
+	int min_value = node->value_;
+
+	for ( ; i < this->nodes_.size(); i++) {
+		min_value = std::min(this->nodes_[i]->value_, min_value);
+	}
+
+	this->min_ = min_value;
+}
 
 template <typename T>
 void decrease_key(Node<T> *, T);
