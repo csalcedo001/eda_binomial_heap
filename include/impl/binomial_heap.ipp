@@ -22,7 +22,7 @@ int BinomialHeap<T>::size() {
 }
 
 template <typename T>
-void BinomialHeap<T>::insert(T value) {
+Node<T> *BinomialHeap<T>::insert(T value) {
 	Node<T> *node = new Node<T>(value);
 
 	this->insert(node);
@@ -31,6 +31,8 @@ void BinomialHeap<T>::insert(T value) {
 	if (this->min_ == nullptr || node->value_ < this->min_->value_) {
 		this->min_ = node;
 	}
+
+	return node;
 }
 
 template <typename T>

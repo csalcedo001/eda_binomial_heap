@@ -14,10 +14,16 @@ int main() {
 
 	int value = 0;
 
+	eda::binomial_heap::Node<int> *node = b.insert(100);
+
 	for (int i = 0; i < n; i++) {
 		value += i % 2 == 1 ? i : -i;
 		b.insert(value);
 	}
+
+	b.print();
+
+	b.decrease_key(node, -100);
 
 	b.print();
 

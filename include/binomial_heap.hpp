@@ -20,7 +20,7 @@ public:
 	BinomialHeap();
 
 	int size();
-	void insert(T);
+	Node<T> *insert(T);
 	T get_min();
 	void delete_min();
 	void decrease_key(Node<T> *, T);
