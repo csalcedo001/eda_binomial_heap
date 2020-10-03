@@ -21,8 +21,10 @@ public:
 	T get_min();
 	void delete_min();
 	void decrease_key(Node<T> *, T);
+	void print();
 
 private:
+	void print(Node<T> *, int);
 	void insert(Node<T> *);
 	Node<T> *merge(Node<T> *, Node<T> *);
 };

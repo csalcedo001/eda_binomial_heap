@@ -3,6 +3,7 @@
 
 #include "node.hpp"
 
+#include <iostream>
 #include <list>
 
 namespace eda {
@@ -29,9 +30,32 @@ template <typename T>
 void decrease_key(Node<T> *, T);
 
 template <typename T>
+void BinomialHeap<T>::print() {
+	for (auto e : this->nodes_) {
+		if (e != nullptr) {
+			this->print(e, 0);
+		}
+	}
+}
+
+template <typename T>
+void BinomialHeap<T>::print(Node<T> *node, int level) {
+	int l = level;
+
+	while (l--) {
+		std::cout << "    ";
+	}
+	std::cout << node->value_ << std::endl;
+
+	for (auto e : node->children_) {
+		this->print(e, level + 1);
+	}
+}
+
+template <typename T>
 void BinomialHeap<T>::insert(Node<T> *node) {
-	if (node->rank() >= this->nodes_.size()) {
-		this->nodes_.resize(node->rank());
+	if (node->rank() > this->nodes_.size()) {
+		this->nodes_.resize(node->rank(), nullptr);
 	}
 
 	int i = node->rank();
@@ -39,6 +63,8 @@ void BinomialHeap<T>::insert(Node<T> *node) {
 	while (i < this->nodes_.size() && this->nodes_[i] != nullptr) {
 		node = this->merge(this->nodes_[i], node);
 		this->nodes_[i] = nullptr;
+
+		i++;
 	}
 
 	if (i == this->nodes_.size()) {
