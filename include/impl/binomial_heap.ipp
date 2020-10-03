@@ -81,7 +81,14 @@ void BinomialHeap<T>::delete_min() {
 }
 
 template <typename T>
-void decrease_key(Node<T> *, T);
+void BinomialHeap<T>::decrease_key(Node<T> *node, T value) {
+	if (value > node->value_) return;
+
+	while (node->parent_ != nullptr && node->value_ < node->parent_->value_) {
+		std::swap(node->value_, node->parent_->value_);
+		node = node->parent_;
+	}
+}
 
 template <typename T>
 void BinomialHeap<T>::print() {
@@ -108,6 +115,8 @@ void BinomialHeap<T>::print(Node<T> *node, int level) {
 
 template <typename T>
 void BinomialHeap<T>::insert(Node<T> *node) {
+	node->parent_ = nullptr;
+
 	if (node->rank() > this->nodes_.size()) {
 		this->nodes_.resize(node->rank(), nullptr);
 	}
