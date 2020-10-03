@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "binomial_heap.hpp"
+#include "node.hpp"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ int main() {
 	b.print();
 
 	while (b.size() > 0) {
-		cout << "Minimum value is " << b.get_min() << endl;
+		cout << "Size is " << b.size() << " and minimum value " << b.get_min() << endl;
 		b.delete_min();
 	}
 

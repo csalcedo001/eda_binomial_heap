@@ -28,7 +28,7 @@ void BinomialHeap<T>::insert(T value) {
 	this->insert(node);
 	this->size_++;
 
-	if (this->min_ == nullptr || value < this->min_->value_) {
+	if (this->min_ == nullptr || node->value_ < this->min_->value_) {
 		this->min_ = node;
 	}
 }
@@ -84,9 +84,15 @@ template <typename T>
 void BinomialHeap<T>::decrease_key(Node<T> *node, T value) {
 	if (value > node->value_) return;
 
+	node->value_ = value;
+
 	while (node->parent_ != nullptr && node->value_ < node->parent_->value_) {
 		std::swap(node->value_, node->parent_->value_);
 		node = node->parent_;
+	}
+
+	if (value < this->min_->value_) {
+		this->min_ = node;
 	}
 }
 
