@@ -8,12 +8,12 @@ BINFILES = $(patsubst app/%.cpp, bin/%, $(wildcard app/*.cpp))
 
 .PRECIOUS: $(OBJ)/%.o
 
-all: $(DIRS) $(TARGET)
+all: $(DIRS) $(BINFILES)
 
 $(DIRS):
 	mkdir $@
 
-bin/%: app/%.cpp # $(OBJFILES)
+bin/%: app/%.cpp $(OBJFILES)
 	$(CXX) $(CXXFLAGS) $^
 
 build/%.o: src/%.cpp include/%.hpp
