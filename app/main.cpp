@@ -12,25 +12,15 @@ int main() {
 
 	cin >> n;
 
-	int value = 0;
-
-	eda::binomial_heap::Node<int> *node = b.insert(100);
+	int k;
 
 	for (int i = 0; i < n; i++) {
-		value += i % 2 == 1 ? i : -i;
-		b.insert(value);
+		cin >> k;
+
+		b.insert(k);
 	}
 
 	b.print();
-
-	b.decrease_key(node, -100);
-
-	b.print();
-
-	while (b.size() > 0) {
-		cout << "Size is " << b.size() << " and minimum value " << b.get_min() << endl;
-		b.delete_min();
-	}
 
 	return 0;
 }
