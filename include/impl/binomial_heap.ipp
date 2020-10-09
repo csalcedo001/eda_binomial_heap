@@ -3,8 +3,9 @@
 
 #include "node.hpp"
 
-#include <iostream>
 #include <list>
+#include <iostream>
+#include <string>
 
 namespace eda {
 
@@ -108,6 +109,26 @@ void BinomialHeap<T>::print() {
 }
 
 template <typename T>
+void BinomialHeap<T>::graph_print() {
+	long long name_index = 0x1;
+
+	std::cout << "digraph D {" << std::endl;
+
+	for (auto e : this->nodes_) {
+		std::string name = "n";
+		name.append(std::to_string(name_index));
+
+		if (e != nullptr) {
+			this->graph_print(e, name);
+		}
+
+		name_index = name_index << 1;
+	}
+
+	std::cout << "}" << std::endl;
+}
+
+template <typename T>
 void BinomialHeap<T>::print(Node<T> *node, int level) {
 	int l = level;
 
@@ -118,6 +139,25 @@ void BinomialHeap<T>::print(Node<T> *node, int level) {
 
 	for (auto e : node->children_) {
 		this->print(e, level + 1);
+	}
+}
+
+template <typename T>
+void BinomialHeap<T>::graph_print(Node<T> *node, std::string name) {
+	
+	std::cout << "    " << name << " [label=" << node->value_ << "];" << std::endl;
+	
+	for (int i = 0; i < node->children_.size(); i++) {
+		if (node->children_[i] != nullptr) {
+			std::string child_name = name;
+
+			child_name.append("_");
+			child_name.append(std::to_string(i));
+
+			std::cout << "    " << name << " -> " << child_name << ';' << std::endl;
+
+			this->graph_print(node->children_[i], child_name);
+		}
 	}
 }
 

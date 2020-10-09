@@ -25,9 +25,11 @@ public:
 	void delete_min();
 	void decrease_key(Node<T> *, T);
 	void print();
+	void graph_print();
 
 private:
 	void print(Node<T> *, int);
+	void graph_print(Node<T> *, std::string);
 	void insert(Node<T> *);
 	Node<T> *merge(Node<T> *, Node<T> *);
 };

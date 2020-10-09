@@ -1,0 +1,11 @@
+digraph R {
+   rA -> sA;
+   rA [label="3"];
+
+   sA -> vB;
+   t  -> rA;
+   uB -> vB;
+   wB -> u;
+   wB -> tA;
+
+}
