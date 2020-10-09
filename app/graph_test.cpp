@@ -12,13 +12,16 @@ int main() {
 
 	cin >> n;
 
-	int k;
+	int value = 0;
+
+	eda::binomial_heap::Node<int> *node = b.insert(100);
 
 	for (int i = 0; i < n; i++) {
-		cin >> k;
-
-		b.insert(k);
+		value += i % 2 == 1 ? i : -i;
+		b.insert(value);
 	}
+
+	b.decrease_key(node, -100);
 
 	b.graph_print();
 
