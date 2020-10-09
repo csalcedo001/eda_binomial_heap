@@ -23,6 +23,11 @@ int BinomialHeap<T>::size() {
 }
 
 template <typename T>
+bool BinomialHeap<T>::empty() {
+	return this->size_ == 0;
+}
+
+template <typename T>
 Node<T> *BinomialHeap<T>::insert(T value) {
 	Node<T> *node = new Node<T>(value);
 

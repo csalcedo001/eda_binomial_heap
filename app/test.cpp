@@ -27,7 +27,7 @@ int main() {
 
 	b.print();
 
-	while (b.size() > 0) {
+	while (!b.empty()) {
 		cout << "Size is " << b.size() << " and minimum value " << b.get_min() << endl;
 		b.delete_min();
 	}
