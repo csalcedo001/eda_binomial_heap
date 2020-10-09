@@ -1,9 +1,0 @@
-digraph R {
-   rA -> sA;
-   sA -> vB;
-   t  -> rA;
-   uB -> vB;
-   wB -> u;
-   wB -> tA;
-
-}
