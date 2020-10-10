@@ -1,28 +1,25 @@
 #ifndef BINOMIAL_HEAP_NODE_HPP_
 #define BINOMIAL_HEAP_NODE_HPP_
 
+#include <vector>
+
+#include "base_node.hpp"
+
 namespace eda {
 
 namespace binomial_heap {
 
 template <typename T>
-class Node {
-public:
-	std::vector<Node<T> *> children_;
-	T value_;
-	Node<T> *parent_;
-
+class Node : public BaseNode<T, Node<T> > {
 public:
 	Node();
 	Node(T);
-
-	int rank();
 };
 
 } // namespace binomial_heap
 
 } // namespace eda
 
-#include "impl/node.ipp"
+#include "impl/node.hpp"
 
 #endif // BINOMIAL_HEAP_NODE_HPP_

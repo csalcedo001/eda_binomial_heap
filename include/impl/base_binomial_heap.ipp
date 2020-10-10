@@ -1,35 +1,37 @@
-#ifndef BINOMIAL_HEAP_BINOMIAL_HEAP_IPP_
-#define BINOMIAL_HEAP_BINOMIAL_HEAP_IPP_
+#ifndef BINOMIAL_HEAP_BASE_BINOMIAL_HEAP_IPP_
+#define BINOMIAL_HEAP_BASE_BINOMIAL_HEAP_IPP_
 
-#include "node.hpp"
+#include "base_binomial_heap.hpp"
 
 #include <list>
 #include <iostream>
 #include <string>
 
+#include "base_node.hpp"
+
 namespace eda {
 
 namespace binomial_heap {
 
-template <typename T>
-BinomialHeap<T>::BinomialHeap() :
+template <typename T, typename Node>
+BaseBinomialHeap<T, Node>::BaseBinomialHeap() :
 	size_(0),
 	min_(nullptr)
 { }
 
-template <typename T>
-int BinomialHeap<T>::size() {
+template <typename T, typename Node>
+int BaseBinomialHeap<T, Node>::size() {
 	return this->size_;
 }
 
-template <typename T>
-bool BinomialHeap<T>::empty() {
+template <typename T, typename Node>
+bool BaseBinomialHeap<T, Node>::empty() {
 	return this->size_ == 0;
 }
 
-template <typename T>
-Node<T> *BinomialHeap<T>::insert(T value) {
-	Node<T> *node = new Node<T>(value);
+template <typename T, typename Node>
+Node *BaseBinomialHeap<T, Node>::insert(T value) {
+	Node *node = new Node(value);
 
 	this->insert(node);
 	this->size_++;
@@ -41,22 +43,22 @@ Node<T> *BinomialHeap<T>::insert(T value) {
 	return node;
 }
 
-template <typename T>
-T BinomialHeap<T>::get_min() {
+template <typename T, typename Node>
+T BaseBinomialHeap<T, Node>::get_min() {
 	// TODO: Throw error when size == 0 
 	if (this->size_ == 0) return -1;
 
 	return this->min_->value_;
 }
 
-template <typename T>
-void BinomialHeap<T>::delete_min() {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::delete_min() {
 	// TODO: Throw error if size is 0
 	if (this->size_ == 0) return;
 
 	this->size_--;
 
-	Node<T> *node = this->min_;
+	Node *node = this->min_;
 	this->nodes_[this->min_->rank()] = nullptr;
 
 	for (auto child : node->children_) {
@@ -77,7 +79,7 @@ void BinomialHeap<T>::delete_min() {
 		i++;
 	}
 
-	Node<T> *min_node = this->nodes_[i];
+	Node *min_node = this->nodes_[i];
 
 	for ( ; i < this->nodes_.size(); i++) {
 		if (this->nodes_[i] != nullptr && this->nodes_[i]->value_ < min_node->value_) {
@@ -88,8 +90,8 @@ void BinomialHeap<T>::delete_min() {
 	this->min_ = min_node;
 }
 
-template <typename T>
-void BinomialHeap<T>::decrease_key(Node<T> *node, T value) {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::decrease_key(Node *node, T value) {
 	if (value > node->value_) return;
 
 	node->value_ = value;
@@ -104,8 +106,8 @@ void BinomialHeap<T>::decrease_key(Node<T> *node, T value) {
 	}
 }
 
-template <typename T>
-void BinomialHeap<T>::print() {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::print() {
 	for (auto e : this->nodes_) {
 		if (e != nullptr) {
 			this->print(e, 0);
@@ -113,8 +115,8 @@ void BinomialHeap<T>::print() {
 	}
 }
 
-template <typename T>
-void BinomialHeap<T>::graph_print() {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::graph_print() {
 	long long name_index = 0x1;
 
 	std::cout << "digraph D {" << std::endl;
@@ -133,8 +135,8 @@ void BinomialHeap<T>::graph_print() {
 	std::cout << "}" << std::endl;
 }
 
-template <typename T>
-void BinomialHeap<T>::print(Node<T> *node, int level) {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::print(Node *node, int level) {
 	int l = level;
 
 	while (l--) {
@@ -147,8 +149,8 @@ void BinomialHeap<T>::print(Node<T> *node, int level) {
 	}
 }
 
-template <typename T>
-void BinomialHeap<T>::graph_print(Node<T> *node, std::string name) {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::graph_print(Node *node, std::string name) {
 	
 	std::cout << "    " << name << " [label=" << node->value_ << "];" << std::endl;
 	
@@ -166,8 +168,8 @@ void BinomialHeap<T>::graph_print(Node<T> *node, std::string name) {
 	}
 }
 
-template <typename T>
-void BinomialHeap<T>::insert(Node<T> *node) {
+template <typename T, typename Node>
+void BaseBinomialHeap<T, Node>::insert(Node *node) {
 	node->parent_ = nullptr;
 
 	if (node->rank() > this->nodes_.size()) {
@@ -191,8 +193,8 @@ void BinomialHeap<T>::insert(Node<T> *node) {
 	}
 }
 
-template <typename T>
-Node<T> *BinomialHeap<T>::merge(Node<T> *node1, Node<T> *node2) {
+template <typename T, typename Node>
+Node *BaseBinomialHeap<T, Node>::merge(Node *node1, Node *node2) {
 	if (node1->value_ < node2->value_) {
 		node1->children_.push_back(node2);
 		node2->parent_ = node1;

@@ -1,27 +1,19 @@
 #ifndef BINOMIAL_HEAP_NODE_IPP_
 #define BINOMIAL_HEAP_NODE_IPP_
 
+#include "node.hpp"
+
+#include "base_node.hpp"
+
 namespace eda {
 
 namespace binomial_heap {
 
 template <typename T>
-Node<T>::Node() :
-	children_(),
-	parent_(nullptr)
-{ }
+Node<T>::Node() : BaseNode<T, Node<T>>::BaseNode() { }
 
 template <typename T>
-Node<T>::Node(T value) :
-	children_(),
-	parent_(nullptr),
-	value_(value)
-{ }
-
-template <typename T>
-int Node<T>::rank() {
-	return this->children_.size();
-}
+Node<T>::Node(T value) : BaseNode<T, Node<T>>::BaseNode(value){ }
 
 } // namespace binomial_heap
 
