@@ -10,10 +10,10 @@ namespace eda {
 namespace binomial_heap {
 
 template <typename T>
-Node<T>::Node() : BaseNode<T, Node<T>>::BaseNode() { }
+Node<T>::Node() : BaseNode<T, Node<T> >::BaseNode() { }
 
 template <typename T>
-Node<T>::Node(T value) : BaseNode<T, Node<T>>::BaseNode(value){ }
+Node<T>::Node(T value) : BaseNode<T, Node<T> >::BaseNode(value){ }
 
 } // namespace binomial_heap
 
